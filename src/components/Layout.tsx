@@ -11,7 +11,7 @@ export function Layout({ children }: LayoutProps) {
   return (
     <div className="min-h-screen flex flex-col">
       <NavigationBar />
-      <main className="flex-grow">{children}</main>
+      <main className="flex-grow bg-background">{children}</main>
       <Footer />
     </div>
   );

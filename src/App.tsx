@@ -11,6 +11,9 @@ import NewBooking from "./pages/NewBooking";
 import BookingDetails from "./pages/BookingDetails";
 import Bookings from "./pages/Bookings";
 
+// Remove unused import
+// import "./App.css";
+
 const queryClient = new QueryClient();
 
 const App = () => (
