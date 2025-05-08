@@ -10,26 +10,35 @@ import SearchResults from "./pages/SearchResults";
 import NewBooking from "./pages/NewBooking";
 import BookingDetails from "./pages/BookingDetails";
 import Bookings from "./pages/Bookings";
+import { useEffect } from "react";
 
+// Create the query client
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/search" element={<SearchResults />} />
-          <Route path="/booking/new" element={<NewBooking />} />
-          <Route path="/booking/:id" element={<BookingDetails />} />
-          <Route path="/bookings" element={<Bookings />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  // Force dark mode when app loads to match the video
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/search" element={<SearchResults />} />
+            <Route path="/booking/new" element={<NewBooking />} />
+            <Route path="/booking/:id" element={<BookingDetails />} />
+            <Route path="/bookings" element={<Bookings />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

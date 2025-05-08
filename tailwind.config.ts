@@ -98,6 +98,18 @@ export default {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.7" },
         },
+        glow: {
+          "0%, 100%": { boxShadow: "0 0 #8b5cf670" },
+          "50%": { boxShadow: "0 0 20px #8b5cf680" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "text-shimmer": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -107,10 +119,14 @@ export default {
         "slide-in": "slide-in 0.4s ease-out",
         "slide-out": "slide-out 0.4s ease-out",
         pulse: "pulse 1.5s ease-in-out infinite",
+        glow: "glow 2s ease-in-out infinite",
+        float: "float 3s ease-in-out infinite",
+        "text-shimmer": "text-shimmer 2s linear infinite",
       },
       backgroundImage: {
         "hero-pattern": "url('/images/hero-bg.svg')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "shimmer": "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)",
       },
       typography: {
         DEFAULT: {
