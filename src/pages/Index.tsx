@@ -85,7 +85,7 @@ const Index = () => {
   return (
     <Layout>
       <div className="min-h-screen">
-        {/* Hero Section - Enhanced with better styling */}
+        {/* Enhanced Hero Section with improved animations and overlay */}
         <section className="relative">
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -102,17 +102,17 @@ const Index = () => {
                 #1 Flight Booking Platform in India
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in">
-                Discover India with <span className="text-primary">SkyVoyager</span>
+                Discover India with <span className="text-primary animate-pulse">SkyVoyager</span>
               </h1>
               <p className="text-lg md:text-xl opacity-90 mb-8 max-w-2xl mx-auto animate-slide-in">
                 Find the best deals on flights across India with our dynamic pricing system
                 and enjoy a seamless booking experience
               </p>
               <div className="flex flex-wrap justify-center gap-4 animate-slide-in">
-                <Button size="lg" className="bg-primary hover:bg-primary/90 gap-2 shadow-lg">
-                  Book Now <ChevronRight className="h-4 w-4" />
+                <Button size="lg" className="bg-primary hover:bg-primary/90 gap-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  Book Now <ChevronRight className="h-4 w-4 animate-pulse" />
                 </Button>
-                <Button size="lg" variant="outline" className="bg-background/20 backdrop-blur-sm border-white text-white hover:bg-white hover:text-foreground transition-colors">
+                <Button size="lg" variant="outline" className="bg-background/20 backdrop-blur-sm border-white text-white hover:bg-white hover:text-foreground transition-colors hover:scale-105">
                   Learn More
                 </Button>
               </div>
@@ -120,7 +120,7 @@ const Index = () => {
           </div>
 
           <div className="relative -mt-32 px-4 container max-w-6xl mx-auto">
-            <div className="bg-background/95 backdrop-blur-md rounded-xl p-4 md:p-8 shadow-xl border border-border animate-slide-in">
+            <div className="bg-background/95 backdrop-blur-md rounded-xl p-4 md:p-8 shadow-xl border border-border animate-slide-in hover:shadow-2xl transition-all duration-300">
               <h2 className="text-2xl font-semibold mb-4 text-center">
                 Search for Flights
               </h2>
@@ -129,10 +129,10 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Features Section - Improved with better icons and layout */}
+        {/* Features Section - Improved with animations and hover effects */}
         <section className="py-24 px-4 bg-background">
           <div className="container mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-12 animate-fade-in">
               <span className="text-primary font-semibold">WHY CHOOSE US</span>
               <h2 className="text-3xl font-bold mt-2 mb-4">
                 The SkyVoyager Advantage
@@ -141,9 +141,9 @@ const Index = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-card border border-border p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <div className="bg-card border border-border p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow transform hover:scale-105 transition-all duration-300 animate-fade-in">
                 <div className="h-12 w-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
-                  <Plane className="h-6 w-6" />
+                  <Plane className="h-6 w-6 animate-pulse" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Dynamic Pricing</h3>
                 <p className="text-muted-foreground">
@@ -152,9 +152,9 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="bg-card border border-border p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <div className="bg-card border border-border p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow transform hover:scale-105 transition-all duration-300 animate-fade-in" style={{ animationDelay: "0.2s" }}>
                 <div className="h-12 w-12 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mb-4">
-                  <Wallet className="h-6 w-6" />
+                  <Wallet className="h-6 w-6 animate-pulse" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Secure Payments</h3>
                 <p className="text-muted-foreground">
@@ -163,9 +163,9 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="bg-card border border-border p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <div className="bg-card border border-border p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow transform hover:scale-105 transition-all duration-300 animate-fade-in" style={{ animationDelay: "0.4s" }}>
                 <div className="h-12 w-12 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-4">
-                  <Shield className="h-6 w-6" />
+                  <Shield className="h-6 w-6 animate-pulse" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Customer Support</h3>
                 <p className="text-muted-foreground">
@@ -178,7 +178,7 @@ const Index = () => {
             <div className="text-center mt-12">
               <Button
                 size="lg"
-                className="px-8 bg-primary hover:bg-primary/90"
+                className="px-8 bg-primary hover:bg-primary/90 hover:shadow-lg transition-all duration-300 hover:scale-105"
                 asChild
               >
                 <a href="#destinations">Explore Destinations</a>
@@ -187,10 +187,10 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Popular Destinations - Converted to Carousel */}
+        {/* Popular Destinations - Enhanced Carousel */}
         <section id="destinations" className="py-24 px-4 bg-muted/30">
           <div className="container mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-12 animate-fade-in">
               <span className="text-primary font-semibold">EXPLORE INDIA</span>
               <h2 className="text-3xl font-bold mt-2 mb-4">
                 Popular Destinations
@@ -201,7 +201,7 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-5xl mx-auto animate-slide-in">
               <Carousel
                 opts={{
                   align: "start",
@@ -233,7 +233,7 @@ const Index = () => {
                             </div>
                           </div>
                           <CardContent className="p-4">
-                            <Button variant="outline" className="w-full">
+                            <Button variant="outline" className="w-full hover:bg-primary hover:text-white transition-colors">
                               Explore Flights
                             </Button>
                           </CardContent>
@@ -243,18 +243,18 @@ const Index = () => {
                   ))}
                 </CarouselContent>
                 <div className="flex justify-center mt-4 gap-2">
-                  <CarouselPrevious className="relative inset-0 translate-y-0" />
-                  <CarouselNext className="relative inset-0 translate-y-0" />
+                  <CarouselPrevious className="relative inset-0 translate-y-0 hover:scale-110 transition-transform" />
+                  <CarouselNext className="relative inset-0 translate-y-0 hover:scale-110 transition-transform" />
                 </div>
               </Carousel>
             </div>
           </div>
         </section>
 
-        {/* Testimonials Section - New */}
+        {/* Testimonials Section - Enhanced with animations */}
         <section className="py-24 px-4 bg-background">
           <div className="container mx-auto">
-            <div className="text-center mb-12">
+            <div className="text-center mb-12 animate-fade-in">
               <span className="text-primary font-semibold">TESTIMONIALS</span>
               <h2 className="text-3xl font-bold mt-2 mb-4">
                 What Our Customers Say
@@ -264,7 +264,7 @@ const Index = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {testimonials.map((testimonial, index) => (
-                <Card key={index} className="border-none shadow-lg">
+                <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-slide-in" style={{ animationDelay: `${index * 0.2}s` }}>
                   <CardContent className="p-6 flex flex-col h-full">
                     <div className="flex mb-4">
                       {[...Array(5)].map((_, i) => (
@@ -272,7 +272,7 @@ const Index = () => {
                           key={i}
                           className={`h-5 w-5 ${
                             i < testimonial.rating
-                              ? "text-yellow-500 fill-yellow-500"
+                              ? "text-yellow-500 fill-yellow-500 animate-pulse"
                               : "text-gray-300"
                           }`}
                         />
@@ -290,12 +290,12 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Newsletter Section - New */}
+        {/* Newsletter Section - Enhanced with animation */}
         <section className="py-16 px-4">
           <div className="container mx-auto">
-            <div className="max-w-4xl mx-auto bg-primary/10 rounded-2xl p-8 md:p-12 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full -translate-y-1/3 translate-x-1/3 blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full translate-y-1/3 -translate-x-1/3 blur-3xl"></div>
+            <div className="max-w-4xl mx-auto bg-primary/10 rounded-2xl p-8 md:p-12 relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 animate-slide-in">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full -translate-y-1/3 translate-x-1/3 blur-3xl pointer-events-none animate-pulse"></div>
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full translate-y-1/3 -translate-x-1/3 blur-3xl pointer-events-none animate-pulse"></div>
               
               <div className="relative z-10 text-center">
                 <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -309,9 +309,9 @@ const Index = () => {
                   <input 
                     type="email" 
                     placeholder="Enter your email" 
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                   />
-                  <Button className="bg-primary hover:bg-primary/90 whitespace-nowrap">
+                  <Button className="bg-primary hover:bg-primary/90 whitespace-nowrap hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                     Subscribe
                   </Button>
                 </div>
