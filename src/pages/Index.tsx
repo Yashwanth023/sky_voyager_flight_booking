@@ -1,4 +1,3 @@
-
 import { Layout } from "@/components/Layout";
 import { FlightSearchForm } from "@/components/FlightSearchForm";
 import { Button } from "@/components/ui/button";
@@ -85,13 +84,13 @@ const Index = () => {
   return (
     <Layout>
       <div className="min-h-screen">
-        {/* Enhanced Hero Section with improved animations and overlay */}
+        {/* Enhanced Hero Section with airplane image background */}
         <section className="relative">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage:
-                "linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1576811040780-f0e9d6dfa244?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')",
+                "linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1488085061387-422e29b40080?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')",
               height: "80vh",
             }}
           ></div>
@@ -121,7 +120,7 @@ const Index = () => {
 
           <div className="relative -mt-32 px-4 container max-w-6xl mx-auto">
             <div className="bg-background/95 backdrop-blur-md rounded-xl p-4 md:p-8 shadow-xl border border-border animate-slide-in hover:shadow-2xl transition-all duration-300">
-              <h2 className="text-2xl font-semibold mb-4 text-center">
+              <h2 className="text-2xl font-semibold mb-4 text-center text-foreground">
                 Search for Flights
               </h2>
               <FlightSearchForm />
@@ -134,7 +133,7 @@ const Index = () => {
           <div className="container mx-auto">
             <div className="text-center mb-12 animate-fade-in">
               <span className="text-primary font-semibold">WHY CHOOSE US</span>
-              <h2 className="text-3xl font-bold mt-2 mb-4">
+              <h2 className="text-3xl font-bold mt-2 mb-4 text-foreground">
                 The SkyVoyager Advantage
               </h2>
               <div className="w-16 h-1 bg-primary mx-auto"></div>
@@ -145,7 +144,7 @@ const Index = () => {
                 <div className="h-12 w-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
                   <Plane className="h-6 w-6 animate-pulse" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Dynamic Pricing</h3>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Dynamic Pricing</h3>
                 <p className="text-muted-foreground">
                   Our unique dynamic pricing model ensures you get the best rates
                   based on real-time demand. Book early for the best deals!
@@ -156,7 +155,7 @@ const Index = () => {
                 <div className="h-12 w-12 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mb-4">
                   <Wallet className="h-6 w-6 animate-pulse" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Secure Payments</h3>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Secure Payments</h3>
                 <p className="text-muted-foreground">
                   Your transactions are secure with our integrated wallet system.
                   Track all your bookings and expenses in one place.
@@ -167,7 +166,7 @@ const Index = () => {
                 <div className="h-12 w-12 rounded-full bg-accent/10 text-accent flex items-center justify-center mb-4">
                   <Shield className="h-6 w-6 animate-pulse" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Customer Support</h3>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">Customer Support</h3>
                 <p className="text-muted-foreground">
                   Our dedicated support team is available 24/7 to assist you with any queries
                   regarding your bookings or travel plans.
@@ -178,7 +177,7 @@ const Index = () => {
             <div className="text-center mt-12">
               <Button
                 size="lg"
-                className="px-8 bg-primary hover:bg-primary/90 hover:shadow-lg transition-all duration-300 hover:scale-105"
+                className="px-8 bg-primary hover:bg-primary/90 hover:shadow-lg transition-all duration-300 hover:scale-105 text-primary-foreground"
                 asChild
               >
                 <a href="#destinations">Explore Destinations</a>
@@ -192,7 +191,7 @@ const Index = () => {
           <div className="container mx-auto">
             <div className="text-center mb-12 animate-fade-in">
               <span className="text-primary font-semibold">EXPLORE INDIA</span>
-              <h2 className="text-3xl font-bold mt-2 mb-4">
+              <h2 className="text-3xl font-bold mt-2 mb-4 text-foreground">
                 Popular Destinations
               </h2>
               <div className="w-16 h-1 bg-primary mx-auto mb-4"></div>
@@ -251,12 +250,12 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Testimonials Section - Enhanced with animations */}
+        {/* Testimonials Section */}
         <section className="py-24 px-4 bg-background">
           <div className="container mx-auto">
             <div className="text-center mb-12 animate-fade-in">
               <span className="text-primary font-semibold">TESTIMONIALS</span>
-              <h2 className="text-3xl font-bold mt-2 mb-4">
+              <h2 className="text-3xl font-bold mt-2 mb-4 text-foreground">
                 What Our Customers Say
               </h2>
               <div className="w-16 h-1 bg-primary mx-auto mb-4"></div>
@@ -279,8 +278,8 @@ const Index = () => {
                       ))}
                     </div>
                     <p className="italic text-muted-foreground flex-grow">"{testimonial.comment}"</p>
-                    <div className="mt-4 pt-4 border-t">
-                      <p className="font-semibold">{testimonial.name}</p>
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <p className="font-semibold text-foreground">{testimonial.name}</p>
                       <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                     </div>
                   </CardContent>
@@ -290,7 +289,7 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Newsletter Section - Enhanced with animation */}
+        {/* Newsletter Section */}
         <section className="py-16 px-4">
           <div className="container mx-auto">
             <div className="max-w-4xl mx-auto bg-primary/10 rounded-2xl p-8 md:p-12 relative overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 animate-slide-in">
@@ -298,7 +297,7 @@ const Index = () => {
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full translate-y-1/3 -translate-x-1/3 blur-3xl pointer-events-none animate-pulse"></div>
               
               <div className="relative z-10 text-center">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
                   Get Exclusive Flight Deals
                 </h2>
                 <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
@@ -311,7 +310,7 @@ const Index = () => {
                     placeholder="Enter your email" 
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                   />
-                  <Button className="bg-primary hover:bg-primary/90 whitespace-nowrap hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <Button className="bg-primary hover:bg-primary/90 whitespace-nowrap hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl text-primary-foreground">
                     Subscribe
                   </Button>
                 </div>

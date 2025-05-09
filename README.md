@@ -1,73 +1,96 @@
-# Welcome to your Lovable project
 
-## Project info
+# SkyVoyager - Flight Booking Platform
 
-**URL**: https://lovable.dev/projects/5a0abb61-71df-4cb2-b52f-f310dc3a187a
+SkyVoyager is a comprehensive flight booking application designed specifically for the Indian market. The platform offers dynamic pricing, secure booking, and an intuitive user interface for both customers and administrators.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+### User Features
+- **Account Management**: User registration and login with role-based access control
+- **Flight Search**: Powerful search functionality with origin, destination, and date filters
+- **Dynamic Pricing**: Real-time pricing based on demand and availability
+- **Seat Selection**: Interactive seat map for selecting preferred seating
+- **Booking Management**: View, modify, and cancel bookings
+- **Digital Boarding Pass**: Generate and download boarding passes with QR codes
+- **Wallet System**: Securely manage payments and transactions within the app
 
-**Use Lovable**
+### Admin Features
+- **User Management**: Create, view, and manage user accounts
+- **Destination Management**: Add, edit, and remove destinations from the system
+- **Booking Approval**: Review and approve booking requests from users
+- **Analytics Dashboard**: Track bookings, revenue, and popular routes (coming soon)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5a0abb61-71df-4cb2-b52f-f310dc3a187a) and start prompting.
+## Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend**: React, TypeScript, Vite
+- **Styling**: Tailwind CSS, shadcn/ui components
+- **Routing**: React Router
+- **State Management**: React Query, Context API
+- **PDF Generation**: jsPDF for boarding passes and tickets
+- **QR Code Generation**: React QR Code
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Installation
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Clone the repository
+git clone <repository-url>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to the project directory
+cd skyvoyager
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Demo Accounts
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+For testing purposes, you can use the following demo accounts:
 
-**Use GitHub Codespaces**
+- **Admin Access**
+  - Email: admin@skyvoyager.com
+  - Password: Any password will work (for demo purposes)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- **User Access**
+  - Email: user@example.com
+  - Password: Any password will work (for demo purposes)
 
-## What technologies are used for this project?
+## Project Structure
 
-This project is built with:
+```
+src/
+├── components/      # Reusable UI components
+├── context/         # React Context for state management
+├── hooks/           # Custom React hooks
+├── pages/           # Page components
+│   ├── admin/       # Admin-specific pages
+│   └── ...          # User-facing pages
+├── services/        # API and business logic
+├── types/           # TypeScript interfaces and types
+└── utils/           # Utility functions
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Future Enhancements
 
-## How can I deploy this project?
+- Integration with real payment gateways
+- Email notifications for booking confirmations
+- Flight status updates and notifications
+- Mobile app versions
+- Integration with loyalty programs
+- Multi-language support
 
-Simply open [Lovable](https://lovable.dev/projects/5a0abb61-71df-4cb2-b52f-f310dc3a187a) and click on Share -> Publish.
+## Screenshots
 
-## Can I connect a custom domain to my Lovable project?
+(Coming soon)
 
-Yes, you can!
+## License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is licensed under the MIT License - see the LICENSE file for details.

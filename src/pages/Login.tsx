@@ -17,7 +17,7 @@ export default function Login() {
   const location = useLocation();
   const { toast } = useToast();
   
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/home";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,7 +102,7 @@ export default function Login() {
               <div className="text-xs mt-1">
                 <p><strong>Admin:</strong> admin@skyvoyager.com</p>
                 <p><strong>User:</strong> user@example.com</p>
-                <p className="italic">(Any password will work)</p>
+                <p className="italic">(Any password will work for demo)</p>
               </div>
             </div>
             <Link to="/register" className="text-sm text-primary hover:underline">
