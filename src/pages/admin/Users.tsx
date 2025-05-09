@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { User } from "@/types/auth";
+import { User, UserRole } from "@/types/auth";
 import {
   Table,
   TableBody,
@@ -32,7 +32,7 @@ export default function AdminUsers() {
   const [newUser, setNewUser] = useState({
     name: "",
     email: "",
-    role: "user" as const,
+    role: "user" as UserRole,
   });
 
   const users = getAllUsers();
@@ -125,7 +125,7 @@ export default function AdminUsers() {
                   <select
                     id="role"
                     value={newUser.role}
-                    onChange={(e) => setNewUser({ ...newUser, role: e.target.value as "user" | "admin" })}
+                    onChange={(e) => setNewUser({ ...newUser, role: e.target.value as UserRole })}
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
                   >
                     <option value="user">User</option>
