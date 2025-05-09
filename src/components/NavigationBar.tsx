@@ -1,18 +1,36 @@
 
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { WalletDisplay } from "./WalletDisplay";
+import { useAuth } from "@/context/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { CircleUserRound, LogOut, Settings, Users } from "lucide-react";
 
 export function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
   
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -81,17 +99,107 @@ export function NavigationBar() {
             >
               Home
             </Link>
-            <Link
-              to="/bookings"
-              className={`nav-link ${
-                isActive("/bookings") ? "active-nav-link" : ""
-              }`}
-            >
-              My Bookings
-            </Link>
+            
+            {isAuthenticated && (
+              <Link
+                to="/bookings"
+                className={`nav-link ${
+                  isActive("/bookings") ? "active-nav-link" : ""
+                }`}
+              >
+                My Bookings
+              </Link>
+            )}
+            
+            {/* Admin Links */}
+            {isAuthenticated && user?.role === "admin" && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="nav-link">
+                    Admin <span className="ml-1">▼</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48 bg-card shadow-lg border-border">
+                  <DropdownMenuLabel>Admin Panel</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem onClick={() => navigate("/admin/users")}>
+                      <Users className="mr-2 h-4 w-4" />
+                      <span>Manage Users</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate("/admin/destinations")}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mr-2 h-4 w-4"
+                      >
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                      </svg>
+                      <span>Destinations</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => navigate("/admin/booking-requests")}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mr-2 h-4 w-4"
+                      >
+                        <path d="M16 12h6M8 12h2M3 12h1" />
+                        <path d="M16 6h6M8 6h2M3 6h1" />
+                        <path d="M16 18h6M8 18h2M3 18h1" />
+                      </svg>
+                      <span>Booking Requests</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+            
             <div className="flex items-center space-x-4">
               <WalletDisplay />
               <ThemeToggle />
+              
+              {isAuthenticated ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="bg-sidebar-accent/50 hover:bg-sidebar-accent rounded-full">
+                      <CircleUserRound className="h-5 w-5" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 bg-card shadow-lg border-border">
+                    <DropdownMenuLabel>
+                      <div className="flex flex-col">
+                        <span>{user?.name}</span>
+                        <span className="text-xs text-muted-foreground">{user?.email}</span>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => navigate("/profile")}>
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Account Settings</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Button variant="default" size="sm" onClick={() => navigate("/login")}>
+                  Login
+                </Button>
+              )}
             </div>
           </nav>
         </div>
@@ -107,20 +215,94 @@ export function NavigationBar() {
               >
                 Home
               </Link>
-              <Link
-                to="/bookings"
-                className={`nav-link ${
-                  isActive("/bookings") ? "active-nav-link" : ""
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                My Bookings
-              </Link>
+              
+              {isAuthenticated && (
+                <Link
+                  to="/bookings"
+                  className={`nav-link ${
+                    isActive("/bookings") ? "active-nav-link" : ""
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  My Bookings
+                </Link>
+              )}
+              
+              {/* Admin Links for Mobile */}
+              {isAuthenticated && user?.role === "admin" && (
+                <>
+                  <div className="text-sm font-medium text-muted-foreground pb-1 pt-2 border-t border-border">
+                    Admin Panel
+                  </div>
+                  <Link
+                    to="/admin/users"
+                    className="nav-link flex items-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Users className="mr-2 h-4 w-4" />
+                    <span>Manage Users</span>
+                  </Link>
+                  <Link
+                    to="/admin/destinations"
+                    className="nav-link flex items-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="mr-2 h-4 w-4"
+                    >
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span>Destinations</span>
+                  </Link>
+                  <Link
+                    to="/admin/booking-requests"
+                    className="nav-link flex items-center"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="mr-2 h-4 w-4"
+                    >
+                      <path d="M16 12h6M8 12h2M3 12h1" />
+                      <path d="M16 6h6M8 6h2M3 6h1" />
+                      <path d="M16 18h6M8 18h2M3 18h1" />
+                    </svg>
+                    <span>Booking Requests</span>
+                  </Link>
+                </>
+              )}
+              
               <hr className="border-border" />
+              
               <div className="flex items-center justify-between">
                 <WalletDisplay />
                 <ThemeToggle />
               </div>
+              
+              {isAuthenticated ? (
+                <Button variant="outline" size="sm" onClick={handleLogout} className="w-full">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Log out
+                </Button>
+              ) : (
+                <Button variant="default" size="sm" onClick={() => navigate("/login")} className="w-full">
+                  Login
+                </Button>
+              )}
             </div>
           </nav>
         )}
