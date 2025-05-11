@@ -16,6 +16,9 @@ import { Button } from "@/components/ui/button";
 import { Flight, bookFlight } from "@/services/flightService";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { getAirportDetails } from "@/services/amadeusService";
+import { useState as useReactState, useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
 const bookingFormSchema = z.object({
   passengerName: z.string().min(3, "Name must be at least 3 characters"),
@@ -30,8 +33,43 @@ interface BookingFormProps {
 
 export function BookingForm({ flight }: BookingFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [airportDetails, setAirportDetails] = useReactState({
+    departure: { name: flight.departureAirport, city: flight.departureCity },
+    arrival: { name: flight.arrivalAirport, city: flight.arrivalCity }
+  });
+  const [loadingAirport, setLoadingAirport] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Fetch detailed airport information from Amadeus API
+  useEffect(() => {
+    const fetchAirportDetails = async () => {
+      setLoadingAirport(true);
+      try {
+        const departureDetails = await getAirportDetails(flight.departureAirport);
+        const arrivalDetails = await getAirportDetails(flight.arrivalAirport);
+
+        if (departureDetails && arrivalDetails) {
+          setAirportDetails({
+            departure: { 
+              name: departureDetails.name, 
+              city: departureDetails.cityName 
+            },
+            arrival: { 
+              name: arrivalDetails.name, 
+              city: arrivalDetails.cityName 
+            }
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching airport details:", error);
+      } finally {
+        setLoadingAirport(false);
+      }
+    };
+
+    fetchAirportDetails();
+  }, [flight.departureAirport, flight.arrivalAirport]);
 
   // Format price in Indian Rupees
   const formatCurrency = (amount: number) => {
@@ -79,6 +117,12 @@ export function BookingForm({ flight }: BookingFormProps) {
     }
   };
 
+  // Calculate price difference for display
+  const priceIncrease = flight.currentPrice > flight.basePrice;
+  const priceDiff = priceIncrease
+    ? Math.round(((flight.currentPrice - flight.basePrice) / flight.basePrice) * 100)
+    : 0;
+
   return (
     <div className="space-y-6 p-6 bg-card rounded-lg shadow-lg border border-border">
       <div>
@@ -96,15 +140,25 @@ export function BookingForm({ flight }: BookingFormProps) {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">From</p>
-            <p className="font-medium">
-              {flight.departureCity} ({flight.departureAirport})
-            </p>
+            <div className="flex flex-col">
+              <p className="font-medium">
+                {loadingAirport ? "Loading..." : airportDetails.departure.city} ({flight.departureAirport})
+              </p>
+              <p className="text-xs text-muted-foreground truncate">
+                {loadingAirport ? "Loading airport details..." : airportDetails.departure.name}
+              </p>
+            </div>
           </div>
           <div>
             <p className="text-sm text-muted-foreground">To</p>
-            <p className="font-medium">
-              {flight.arrivalCity} ({flight.arrivalAirport})
-            </p>
+            <div className="flex flex-col">
+              <p className="font-medium">
+                {loadingAirport ? "Loading..." : airportDetails.arrival.city} ({flight.arrivalAirport})
+              </p>
+              <p className="text-xs text-muted-foreground truncate">
+                {loadingAirport ? "Loading airport details..." : airportDetails.arrival.name}
+              </p>
+            </div>
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Departure</p>
@@ -118,9 +172,16 @@ export function BookingForm({ flight }: BookingFormProps) {
         <div className="border-t border-border pt-4">
           <div className="flex justify-between">
             <span className="font-medium">Price:</span>
-            <span className="font-bold text-primary">
-              {formatCurrency(flight.currentPrice)}
-            </span>
+            <div className="text-right">
+              <span className="font-bold text-primary">
+                {formatCurrency(flight.currentPrice)}
+              </span>
+              {priceIncrease && (
+                <div className="text-xs text-destructive">
+                  +{priceDiff}% increased due to high demand
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -182,7 +243,14 @@ export function BookingForm({ flight }: BookingFormProps) {
               disabled={isSubmitting}
               className="px-8"
             >
-              {isSubmitting ? "Processing..." : "Confirm Booking"}
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                "Confirm Booking"
+              )}
             </Button>
           </div>
         </form>

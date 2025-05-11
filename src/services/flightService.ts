@@ -2,6 +2,7 @@
 // Services to handle flight data and operations
 
 import { toast } from "sonner";
+import { initializeAirportsFromApi } from "./amadeusService";
 
 export interface Airport {
   code: string;
@@ -209,14 +210,17 @@ export const updateFlightPricing = (flights: Flight[]): Flight[] => {
     if (flight.lastViewed >= fiveMinutesAgo) {
       const newViewCount = flight.viewCount + 1;
       
-      // Apply 10% increase after 3 views
+      // Apply 10% increase after 3 views - DYNAMIC PRICING IMPLEMENTATION
       if (newViewCount >= 3) {
-        return {
-          ...flight,
-          currentPrice: Math.floor(flight.basePrice * 1.1),
-          lastViewed: now,
-          viewCount: newViewCount
-        };
+        // Only show toast if price has actually increased
+        if (flight.currentPrice === flight.basePrice) {
+          return {
+            ...flight,
+            currentPrice: Math.floor(flight.basePrice * 1.1), // 10% increase
+            lastViewed: now,
+            viewCount: newViewCount
+          };
+        }
       }
       
       return {
@@ -287,14 +291,15 @@ export const getFlightById = (
   else if (flight.lastViewed >= fiveMinutesAgo) {
     const newViewCount = flight.viewCount + 1;
     
-    // Apply 10% increase after 3 views
+    // Apply 10% increase after 3 views - DYNAMIC PRICING IMPLEMENTATION
     if (newViewCount >= 3 && updatedFlight.currentPrice === updatedFlight.basePrice) {
       updatedFlight = {
         ...flight,
-        currentPrice: Math.floor(flight.basePrice * 1.1),
+        currentPrice: Math.floor(flight.basePrice * 1.1), // Exact 10% increase
         lastViewed: now,
         viewCount: newViewCount
       };
+      // Notify user about price increase
       toast(`Price increased by 10% due to high demand!`, {
         description: `This flight has been viewed multiple times recently.`,
       });
@@ -430,8 +435,19 @@ export const updateWalletBalance = (amount: number, description: string) => {
 };
 
 // Initialize airport data if not already in localStorage
-export const initializeAirportData = () => {
+export const initializeAirportData = async () => {
   if (!localStorage.getItem("airportData")) {
+    try {
+      // Try to initialize from Amadeus API first
+      const airports = await initializeAirportsFromApi();
+      if (airports && airports.length > 0) {
+        return airports;
+      }
+    } catch (error) {
+      console.error("Error initializing from Amadeus API, using fallback data:", error);
+    }
+    
+    // Fallback to static data if API fails
     const airports: Airport[] = [
       { code: "DEL", name: "Indira Gandhi International Airport", city: "New Delhi", country: "India" },
       { code: "BOM", name: "Chhatrapati Shivaji Maharaj International Airport", city: "Mumbai", country: "India" },
@@ -451,5 +467,8 @@ export const initializeAirportData = () => {
     ];
     
     localStorage.setItem("airportData", JSON.stringify(airports));
+    return airports;
   }
+  
+  return JSON.parse(localStorage.getItem("airportData") || "[]");
 };

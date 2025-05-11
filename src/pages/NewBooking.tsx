@@ -7,6 +7,7 @@ import { Flight, getFlightById } from "@/services/flightService";
 import { BookingForm } from "@/components/BookingForm";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
+import { FilePdf } from "lucide-react";
 
 const NewBooking = () => {
   const [searchParams] = useSearchParams();
@@ -64,6 +65,42 @@ const NewBooking = () => {
     }, 500);
   }, [from, to, date, flightId, navigate, toast]);
 
+  const handleDownloadSample = () => {
+    if (!flight) return;
+    
+    // Create sample booking for demonstration
+    const sampleBooking = {
+      id: "SAMPLE-BOOKING",
+      flightId: flight.id,
+      flight: flight,
+      passengerName: "Sample Passenger",
+      passengerEmail: "sample@example.com",
+      bookingDate: new Date().toISOString(),
+      seatNumber: "12A",
+      status: "confirmed" as const,
+      pnr: "ABC123"
+    };
+    
+    // Create a temporary div to render the boarding pass
+    const tempDiv = document.createElement("div");
+    tempDiv.id = "sample-ticket";
+    tempDiv.style.position = "absolute";
+    tempDiv.style.left = "-9999px";
+    document.body.appendChild(tempDiv);
+    
+    // Import the PDF generator dynamically to avoid circular dependencies
+    import("@/utils/pdfGenerator").then(({ generatePDF, getBookingTicketHtml }) => {
+      // Set the HTML content of the div
+      tempDiv.innerHTML = getBookingTicketHtml(sampleBooking);
+      
+      // Generate PDF from the div
+      generatePDF("SAMPLE", "sample-ticket").then(() => {
+        // Clean up the temporary div
+        document.body.removeChild(tempDiv);
+      });
+    });
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -88,7 +125,19 @@ const NewBooking = () => {
               </div>
             </div>
           ) : flight ? (
-            <BookingForm flight={flight} />
+            <>
+              <BookingForm flight={flight} />
+              <div className="mt-4 flex justify-end">
+                <Button 
+                  variant="outline" 
+                  onClick={handleDownloadSample}
+                  className="flex items-center gap-2"
+                >
+                  <FilePdf className="h-4 w-4" />
+                  <span>Sample Ticket Preview</span>
+                </Button>
+              </div>
+            </>
           ) : (
             <div className="text-center py-16">
               <h2 className="text-2xl font-semibold mb-2">Flight not found</h2>
