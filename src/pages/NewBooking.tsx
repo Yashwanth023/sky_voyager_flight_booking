@@ -32,22 +32,35 @@ const NewBooking = () => {
     }
 
     setLoading(true);
+    console.log("Fetching flight data:", { from, to, date, flightId });
+    
     // Short delay to simulate API call
     setTimeout(() => {
-      const selectedFlight = getFlightById(from, to, date, flightId);
-      
-      if (!selectedFlight) {
+      try {
+        const selectedFlight = getFlightById(from, to, date, flightId);
+        
+        if (!selectedFlight) {
+          toast({
+            title: "Error",
+            description: "Could not find the selected flight",
+            variant: "destructive",
+          });
+          navigate("/");
+          return;
+        }
+        
+        setFlight(selectedFlight);
+      } catch (error) {
+        console.error("Error fetching flight:", error);
         toast({
           title: "Error",
-          description: "Could not find the selected flight",
+          description: "Failed to load flight information",
           variant: "destructive",
         });
         navigate("/");
-        return;
+      } finally {
+        setLoading(false);
       }
-      
-      setFlight(selectedFlight);
-      setLoading(false);
     }, 500);
   }, [from, to, date, flightId, navigate, toast]);
 

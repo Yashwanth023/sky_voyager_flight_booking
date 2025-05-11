@@ -46,7 +46,8 @@ export function BookingForm({ flight }: BookingFormProps) {
     },
   });
 
-  function onSubmit(values: BookingFormValues) {
+  const onSubmit = (values: BookingFormValues) => {
+    console.log("Form submitted with values:", values);
     setIsSubmitting(true);
     
     try {
@@ -68,6 +69,7 @@ export function BookingForm({ flight }: BookingFormProps) {
         navigate(`/booking/${booking.id}`);
       }, 1000);
     } catch (error) {
+      console.error("Booking error:", error);
       toast({
         title: "Booking failed",
         description: "There was an error processing your booking. Please try again.",
@@ -75,7 +77,7 @@ export function BookingForm({ flight }: BookingFormProps) {
       });
       setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="space-y-6 p-6 bg-card rounded-lg shadow-lg border border-border">
@@ -135,7 +137,11 @@ export function BookingForm({ flight }: BookingFormProps) {
                   <FormItem>
                     <FormLabel>Full Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your full name" {...field} />
+                      <Input 
+                        placeholder="Enter your full name" 
+                        {...field} 
+                        className="focus:border-primary"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -152,6 +158,7 @@ export function BookingForm({ flight }: BookingFormProps) {
                         type="email"
                         placeholder="Enter your email address"
                         {...field}
+                        className="focus:border-primary"
                       />
                     </FormControl>
                     <FormMessage />
