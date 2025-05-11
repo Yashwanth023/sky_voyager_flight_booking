@@ -97,6 +97,18 @@ const NewBooking = () => {
       generatePDF("SAMPLE", "sample-ticket").then(() => {
         // Clean up the temporary div
         document.body.removeChild(tempDiv);
+        
+        toast({
+          title: "Success",
+          description: "Sample ticket downloaded successfully",
+        });
+      }).catch((error) => {
+        console.error("Error generating sample PDF:", error);
+        toast({
+          title: "Error",
+          description: "Failed to download sample ticket",
+          variant: "destructive",
+        });
       });
     });
   };
