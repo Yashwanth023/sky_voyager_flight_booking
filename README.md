@@ -87,9 +87,6 @@ src/
 - Integration with loyalty programs
 - Multi-language support
 
-## Screenshots
-
-(Coming soon)
 
 ## License
 
