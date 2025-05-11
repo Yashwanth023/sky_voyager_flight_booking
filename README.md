@@ -86,8 +86,3 @@ src/
 - Mobile app versions
 - Integration with loyalty programs
 - Multi-language support
-
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
