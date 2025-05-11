@@ -5,7 +5,7 @@ import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { BookingDetails as BookingDetailsType, getBookingById, cancelBooking } from "@/services/flightService";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Calendar, FilePdf } from "lucide-react";
+import { ArrowLeft, Calendar, FileText } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { generatePDF, getBookingTicketHtml } from "@/utils/pdfGenerator";
 import { getAirportDetails } from "@/services/amadeusService";
@@ -192,7 +192,7 @@ const BookingDetails = () => {
                     onClick={handleDownloadTicket}
                     className="flex items-center gap-2"
                   >
-                    <FilePdf className="h-4 w-4" />
+                    <FileText className="h-4 w-4" />
                     Download E-Ticket
                   </Button>
                   <Button 

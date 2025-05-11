@@ -7,7 +7,7 @@ import { Flight, getFlightById } from "@/services/flightService";
 import { BookingForm } from "@/components/BookingForm";
 import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FilePdf } from "lucide-react";
+import { FileText } from "lucide-react";
 
 const NewBooking = () => {
   const [searchParams] = useSearchParams();
@@ -133,7 +133,7 @@ const NewBooking = () => {
                   onClick={handleDownloadSample}
                   className="flex items-center gap-2"
                 >
-                  <FilePdf className="h-4 w-4" />
+                  <FileText className="h-4 w-4" />
                   <span>Sample Ticket Preview</span>
                 </Button>
               </div>
