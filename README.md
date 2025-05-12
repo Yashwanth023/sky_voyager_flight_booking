@@ -1,4 +1,3 @@
-
 # SkyVoyager - Flight Booking Platform
 
 SkyVoyager is a comprehensive flight booking application designed for the Indian market. The platform offers dynamic pricing, secure booking, and an intuitive user interface for customers.
