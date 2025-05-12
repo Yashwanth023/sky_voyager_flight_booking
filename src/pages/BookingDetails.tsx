@@ -17,6 +17,7 @@ const BookingDetails = () => {
   const [booking, setBooking] = useState<BookingDetailsType | null>(null);
   const [loading, setLoading] = useState(true);
   const [cancelling, setCancelling] = useState(false);
+  const [downloading, setDownloading] = useState(false);
   const [airportDetails, setAirportDetails] = useState({
     departure: { name: "", city: "" },
     arrival: { name: "", city: "" }
@@ -117,6 +118,12 @@ const BookingDetails = () => {
   const handleDownloadTicket = async () => {
     if (!booking) return;
     
+    setDownloading(true);
+    toast({
+      title: "Processing",
+      description: "Generating your e-ticket...",
+    });
+    
     // Create a temporary div to render the boarding pass
     const tempDiv = document.createElement("div");
     tempDiv.id = "ticket-pdf";
@@ -144,6 +151,7 @@ const BookingDetails = () => {
     } finally {
       // Clean up the temporary div
       document.body.removeChild(tempDiv);
+      setDownloading(false);
     }
   };
 
@@ -190,15 +198,16 @@ const BookingDetails = () => {
                   <Button 
                     variant="outline" 
                     onClick={handleDownloadTicket}
+                    disabled={downloading}
                     className="flex items-center gap-2"
                   >
                     <FileText className="h-4 w-4" />
-                    Download E-Ticket
+                    {downloading ? "Generating..." : "Download E-Ticket"}
                   </Button>
                   <Button 
                     variant="destructive" 
                     onClick={handleCancel}
-                    disabled={cancelling}
+                    disabled={cancelling || downloading}
                   >
                     {cancelling ? "Cancelling..." : "Cancel Booking"}
                   </Button>

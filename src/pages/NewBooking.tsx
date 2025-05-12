@@ -15,6 +15,7 @@ const NewBooking = () => {
   const { toast } = useToast();
   const [flight, setFlight] = useState<Flight | null>(null);
   const [loading, setLoading] = useState(true);
+  const [downloading, setDownloading] = useState(false);
 
   const from = searchParams.get("from") || "";
   const to = searchParams.get("to") || "";
@@ -68,6 +69,12 @@ const NewBooking = () => {
   const handleDownloadSample = () => {
     if (!flight) return;
     
+    setDownloading(true);
+    toast({
+      title: "Processing",
+      description: "Generating sample ticket...",
+    });
+    
     // Create sample booking for demonstration
     const sampleBooking = {
       id: "SAMPLE-BOOKING",
@@ -102,6 +109,7 @@ const NewBooking = () => {
           title: "Success",
           description: "Sample ticket downloaded successfully",
         });
+        setDownloading(false);
       }).catch((error) => {
         console.error("Error generating sample PDF:", error);
         toast({
@@ -109,6 +117,7 @@ const NewBooking = () => {
           description: "Failed to download sample ticket",
           variant: "destructive",
         });
+        setDownloading(false);
       });
     });
   };
@@ -143,10 +152,11 @@ const NewBooking = () => {
                 <Button 
                   variant="outline" 
                   onClick={handleDownloadSample}
+                  disabled={downloading}
                   className="flex items-center gap-2"
                 >
                   <FileText className="h-4 w-4" />
-                  <span>Sample Ticket Preview</span>
+                  <span>{downloading ? "Generating..." : "Sample Ticket Preview"}</span>
                 </Button>
               </div>
             </>
